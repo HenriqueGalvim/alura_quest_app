@@ -127,7 +127,13 @@ class _PersonagemCardState extends State<PersonagemCard> {
                             width: 300,
                             child: LinearProgressIndicator(
                               value: vida / 100,
-                              color: Colors.yellow.shade500,
+                              color: vida > 80
+                                  ? Color.fromARGB(255, 14, 219, 58)
+                                  : vida > 50
+                                      ? Colors.yellow.shade500
+                                      : vida > 20
+                                          ? Color.fromARGB(255, 194, 46, 20)
+                                          : Colors.black,
                               backgroundColor: Colors.white,
                             ),
                           ),
@@ -151,4 +157,3 @@ class _PersonagemCardState extends State<PersonagemCard> {
     );
   }
 }
-
