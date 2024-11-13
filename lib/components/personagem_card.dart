@@ -1,4 +1,4 @@
-import 'package:alura_quest_app/forca.dart';
+import 'package:alura_quest_app/components/forca.dart';
 import 'package:flutter/material.dart';
 
 class PersonagemCard extends StatefulWidget {

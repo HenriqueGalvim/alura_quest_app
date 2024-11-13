@@ -1,4 +1,4 @@
-import 'package:alura_quest_app/personagem_card.dart';
+import 'package:alura_quest_app/components/personagem_card.dart';
 import 'package:flutter/material.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -55,6 +55,9 @@ class _InitialScreenState extends State<InitialScreen> {
                       "https://th.bing.com/th/id/R.3a77a78e93845e6ec7f48ac3a3b22fee?rik=AePiDOZtCVTVyg&pid=ImgRaw&r=0",
                       "Mago",
                       5)),
+              SizedBox(
+                height: 100,
+              )
             ],
           ),
         ),

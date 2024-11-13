@@ -1,4 +1,4 @@
-import 'package:alura_quest_app/personagem_card.dart';
+import 'package:alura_quest_app/components/personagem_card.dart';
 import 'package:flutter/material.dart';
 
 class Forca extends StatelessWidget {
