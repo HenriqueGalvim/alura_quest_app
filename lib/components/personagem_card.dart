@@ -128,11 +128,11 @@ class _PersonagemCardState extends State<PersonagemCard> {
                             child: LinearProgressIndicator(
                               value: vida / 100,
                               color: vida > 80
-                                  ? Color.fromARGB(255, 14, 219, 58)
+                                  ? const Color.fromARGB(255, 14, 219, 58)
                                   : vida > 50
                                       ? Colors.yellow.shade500
                                       : vida > 20
-                                          ? Color.fromARGB(255, 194, 46, 20)
+                                          ? const Color.fromARGB(255, 194, 46, 20)
                                           : Colors.black,
                               backgroundColor: Colors.white,
                             ),
