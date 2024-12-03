@@ -1,4 +1,5 @@
 import 'package:alura_quest_app/components/forca.dart';
+import 'package:alura_quest_app/data/personagemDAO.dart';
 import 'package:flutter/material.dart';
 
 class PersonagemCard extends StatefulWidget {
@@ -124,7 +125,7 @@ class _PersonagemCardState extends State<PersonagemCard> {
                         Padding(
                           padding: const EdgeInsets.all(20),
                           child: SizedBox(
-                            width: 300,
+                            width: 250,
                             child: LinearProgressIndicator(
                               value: widget.vida / 100,
                               color: widget.vida > 80
@@ -144,6 +145,14 @@ class _PersonagemCardState extends State<PersonagemCard> {
                             'Vida: ${widget.vida}',
                             style: const TextStyle(color: Colors.white),
                           ),
+                        ),
+
+                        SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: FloatingActionButton(onPressed: () =>{
+                           PersonagemDao().delete(widget.nome)
+                          }, child: Icon(Icons.remove,color: Colors.red,),),
                         )
                       ],
                     ),

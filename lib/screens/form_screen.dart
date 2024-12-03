@@ -1,3 +1,5 @@
+import 'package:alura_quest_app/components/personagem_card.dart';
+import 'package:alura_quest_app/data/personagemDAO.dart';
 import 'package:alura_quest_app/data/personagem_inheridt.dart';
 import 'package:flutter/material.dart';
 
@@ -144,6 +146,11 @@ class _FormScreenState extends State<FormScreen> {
                           child: ElevatedButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
+                                  PersonagemDao().save(PersonagemCard(nameController.text,
+                                          urlController.text,
+                                          racaController.text,
+                                          int.parse(forcaController.text)));
+
                                   PersonagemInheridt.of(widget.personagemContext)!
                                       .novoPersonagem(
                                           nameController.text,

@@ -22,8 +22,9 @@ class PersonagemDao {
     var isExist = await find(personagem.nome);
     if (isExist.isEmpty) {
       return await database.insert(_tableName, toMap(personagem));
-    }else{
-      return await database.update(_tableName, toMap(personagem), where: '$_name = ?', whereArgs: [personagem.nome]);
+    } else {
+      return await database.update(_tableName, toMap(personagem),
+          where: '$_name = ?', whereArgs: [personagem.nome]);
     }
   }
 
@@ -33,7 +34,7 @@ class PersonagemDao {
     return toList(result);
   }
 
-  Map<String,dynamic> toMap(PersonagemCard personagem){
+  Map<String, dynamic> toMap(PersonagemCard personagem) {
     final Map<String, dynamic> mapPersonagem = Map();
     mapPersonagem[_name] = personagem.nome;
     mapPersonagem[_url] = personagem.url;
@@ -61,5 +62,8 @@ class PersonagemDao {
     return toList(result);
   }
 
-  delete(String nomeDoPersonagem) async {}
+  delete(String nomeDoPersonagem) async {
+    final Database database = await getDatabase();
+    return database.delete(_tableName, where: '$_name = ? ', whereArgs: [nomeDoPersonagem]  );
+  }
 }
