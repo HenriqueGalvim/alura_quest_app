@@ -1,4 +1,6 @@
 import 'package:alura_quest_app/components/personagem_card.dart';
+import 'package:alura_quest_app/data/database.dart';
+import 'package:sqflite/sqflite.dart';
 
 class PersonagemDao {
   static const String tableSql = 'CREATE TABLE $_tableName('
@@ -15,4 +17,29 @@ class PersonagemDao {
   static const String _forca = 'forca';
   static const String _vida = 'vida';
 
+  save(PersonagemCard personagem) async {}
+
+  Future<List<PersonagemCard>> findAll() async {
+    final Database database = await getDatabase();
+    final List<Map<String, dynamic>> result = await database.query(_tableName);
+    return toList(result);
+  }
+
+  List<PersonagemCard> toList(List<Map<String, dynamic>> mapaDePersonagens) {
+    final List<PersonagemCard> personagens = [];
+    for (Map<String, dynamic> linha in mapaDePersonagens) {
+      final PersonagemCard personagemCard = PersonagemCard(
+          linha[_name], linha[_url], linha[_raca], linha[_forca]);
+      personagens.add(personagemCard);
+    }
+    return personagens;
+  }
+
+  Future<List<PersonagemCard>> find(String nomeDoPersonagem) async {
+    final Database database = await getDatabase();
+    final List<Map<String, dynamic>> result = await database.query(_tableName, where: '$_name = ?', whereArgs: [nomeDoPersonagem]);
+    return toList(result);
+  }
+
+  delete(String nomeDoPersonagem) async {}
 }
