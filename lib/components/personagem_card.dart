@@ -6,9 +6,9 @@ class PersonagemCard extends StatefulWidget {
   final String url;
   final String raca;
   final int forca;
+  int vida;
 
-  PersonagemCard(this.nome, this.url, this.raca, this.forca, {super.key});
-  int vida = 100;
+  PersonagemCard(this.nome, this.url, this.raca, this.forca, {super.key, this.vida = 100});
   @override
   // ignore: library_private_types_in_public_api
   _PersonagemCardState createState() => _PersonagemCardState();
