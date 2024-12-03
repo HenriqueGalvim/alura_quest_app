@@ -1,6 +1,3 @@
-import 'dart:js_interop';
-
-import 'package:alura_quest_app/components/personagem_card.dart';
 import 'package:alura_quest_app/data/personagem_inheridt.dart';
 import 'package:alura_quest_app/screens/form_screen.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +28,7 @@ class _InitialScreenState extends State<InitialScreen> {
           color: Colors.white60,
           child: ListView(
             children: PersonagemInheridt.of(context)!.listaDePersonagens,
+            padding: const EdgeInsets.only(top: 10, bottom: 75),
           ),
         ),
       ),

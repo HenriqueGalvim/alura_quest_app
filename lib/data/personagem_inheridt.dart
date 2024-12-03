@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class PersonagemInheridt extends InheritedWidget {
   PersonagemInheridt({super.key, required this.child}) : super(child: child);
 
+  @override
   final Widget child;
 
   final List<PersonagemCard> listaDePersonagens = [

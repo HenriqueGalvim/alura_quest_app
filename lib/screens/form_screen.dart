@@ -1,7 +1,5 @@
 import 'package:alura_quest_app/data/personagem_inheridt.dart';
-import 'package:alura_quest_app/screens/initial_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class FormScreen extends StatefulWidget {
   const FormScreen(this.personagemContext,{super.key});
@@ -26,7 +24,7 @@ class _FormScreenState extends State<FormScreen> {
           appBar: AppBar(
             backgroundColor: Colors.red.shade400,
             title:
-                Text("Novo Personagem", style: TextStyle(color: Colors.white)),
+                const Text("Novo Personagem", style: TextStyle(color: Colors.white)),
           ),
           body: Center(
             child: SingleChildScrollView(
@@ -53,7 +51,7 @@ class _FormScreenState extends State<FormScreen> {
                           },
                           controller: nameController,
                           textAlign: TextAlign.center,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Nome do Personagem',
                               fillColor: Colors.white70,
@@ -72,7 +70,7 @@ class _FormScreenState extends State<FormScreen> {
                           },
                           controller: racaController,
                           textAlign: TextAlign.center,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Raça do personagem',
                               fillColor: Colors.white70,
@@ -94,7 +92,7 @@ class _FormScreenState extends State<FormScreen> {
                           keyboardType: TextInputType.number,
                           controller: forcaController,
                           textAlign: TextAlign.center,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Força do personagem de 1 a 5',
                               fillColor: Colors.white70,
@@ -115,7 +113,7 @@ class _FormScreenState extends State<FormScreen> {
                           onChanged: (text) => setState(() {}),
                           controller: urlController,
                           textAlign: TextAlign.center,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Url da imagem',
                               fillColor: Colors.white70,
@@ -140,7 +138,7 @@ class _FormScreenState extends State<FormScreen> {
                               ))),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Container(
+                        child: SizedBox(
                           width: 150,
                           height: 30,
                           child: ElevatedButton(
@@ -162,7 +160,7 @@ class _FormScreenState extends State<FormScreen> {
                                   Navigator.pop(context);
                                 }
                               },
-                              child: Text("Adicionar")),
+                              child: const Text("Adicionar")),
                         ),
                       )
                     ],

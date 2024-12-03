@@ -7,15 +7,15 @@ class PersonagemCard extends StatefulWidget {
   final String raca;
   final int forca;
 
-  const PersonagemCard(this.nome, this.url, this.raca, this.forca, {super.key});
-
+  PersonagemCard(this.nome, this.url, this.raca, this.forca, {super.key});
+  int vida = 100;
   @override
   // ignore: library_private_types_in_public_api
   _PersonagemCardState createState() => _PersonagemCardState();
 }
 
 class _PersonagemCardState extends State<PersonagemCard> {
-  int vida = 100;
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +64,10 @@ class _PersonagemCardState extends State<PersonagemCard> {
                                   ElevatedButton(
                                       onPressed: () {
                                         setState(() {
-                                          if (vida >= 100) {
-                                            vida = 100;
+                                          if (widget.vida >= 100) {
+                                            widget.vida = 100;
                                           } else {
-                                            vida++;
+                                            widget.vida++;
                                           }
                                         });
                                       },
@@ -93,10 +93,10 @@ class _PersonagemCardState extends State<PersonagemCard> {
                                   ElevatedButton(
                                       onPressed: () {
                                         setState(() {
-                                          if (vida <= 0) {
-                                            vida = 0;
+                                          if (widget.vida <= 0) {
+                                            widget.vida = 0;
                                           } else {
-                                            vida--;
+                                            widget.vida--;
                                           }
                                         });
                                       },
@@ -126,12 +126,12 @@ class _PersonagemCardState extends State<PersonagemCard> {
                           child: SizedBox(
                             width: 300,
                             child: LinearProgressIndicator(
-                              value: vida / 100,
-                              color: vida > 80
+                              value: widget.vida / 100,
+                              color: widget.vida > 80
                                   ? const Color.fromARGB(255, 14, 219, 58)
-                                  : vida > 50
+                                  : widget.vida> 50
                                       ? Colors.yellow.shade500
-                                      : vida > 20
+                                      : widget.vida > 20
                                           ? const Color.fromARGB(255, 194, 46, 20)
                                           : Colors.black,
                               backgroundColor: Colors.white,
@@ -141,7 +141,7 @@ class _PersonagemCardState extends State<PersonagemCard> {
                         Padding(
                           padding: const EdgeInsets.only(right: 20),
                           child: Text(
-                            'Vida: $vida',
+                            'Vida: ${widget.vida}',
                             style: const TextStyle(color: Colors.white),
                           ),
                         )
