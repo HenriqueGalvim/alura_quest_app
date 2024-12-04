@@ -4,8 +4,8 @@ import 'package:alura_quest_app/data/personagem_inheridt.dart';
 import 'package:flutter/material.dart';
 
 class FormScreen extends StatefulWidget {
-  const FormScreen(this.personagemContext,{super.key});
-   final BuildContext personagemContext;
+  const FormScreen(this.personagemContext, {super.key});
+  final BuildContext personagemContext;
 
   @override
   State<FormScreen> createState() => _FormScreenState();
@@ -25,8 +25,8 @@ class _FormScreenState extends State<FormScreen> {
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.red.shade400,
-            title:
-                const Text("Novo Personagem", style: TextStyle(color: Colors.white)),
+            title: const Text("Novo Personagem",
+                style: TextStyle(color: Colors.white)),
           ),
           body: Center(
             child: SingleChildScrollView(
@@ -146,12 +146,15 @@ class _FormScreenState extends State<FormScreen> {
                           child: ElevatedButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  PersonagemDao().save(PersonagemCard(nameController.text,
-                                          urlController.text,
-                                          racaController.text,
-                                          int.parse(forcaController.text)));
+                                  PersonagemDao().save(PersonagemCard(
+                                      nameController.text,
+                                      urlController.text,
+                                      racaController.text,
+                                      int.parse(forcaController.text),
+                                      100));
 
-                                  PersonagemInheridt.of(widget.personagemContext)!
+                                  PersonagemInheridt.of(
+                                          widget.personagemContext)!
                                       .novoPersonagem(
                                           nameController.text,
                                           urlController.text,

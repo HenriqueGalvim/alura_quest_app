@@ -1,5 +1,6 @@
 import 'package:alura_quest_app/components/forca.dart';
 import 'package:alura_quest_app/data/personagemDAO.dart';
+import 'package:alura_quest_app/screens/form_screen.dart';
 import 'package:flutter/material.dart';
 
 class PersonagemCard extends StatefulWidget {
@@ -9,15 +10,15 @@ class PersonagemCard extends StatefulWidget {
   final int forca;
   int vida;
 
-  PersonagemCard(this.nome, this.url, this.raca, this.forca, {super.key, this.vida = 100});
+  PersonagemCard(this.nome, this.url, this.raca, this.forca, this.vida,
+      {super.key});
+
   @override
   // ignore: library_private_types_in_public_api
   _PersonagemCardState createState() => _PersonagemCardState();
 }
 
 class _PersonagemCardState extends State<PersonagemCard> {
-
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -70,9 +71,15 @@ class _PersonagemCardState extends State<PersonagemCard> {
                                           } else {
                                             widget.vida++;
                                           }
+                                          PersonagemDao().save(PersonagemCard(
+                                              widget.nome,
+                                              widget.url,
+                                              widget.raca,
+                                              widget.forca,
+                                              widget.vida));
                                         });
                                       },
-                                      child: const Icon(Icons.arrow_drop_up)),
+                                      child: const Icon(Icons.arrow_drop_up))
                                 ],
                               )),
                         ),
@@ -99,6 +106,12 @@ class _PersonagemCardState extends State<PersonagemCard> {
                                           } else {
                                             widget.vida--;
                                           }
+                                          PersonagemDao().save(PersonagemCard(
+                                              widget.nome,
+                                              widget.url,
+                                              widget.raca,
+                                              widget.forca,
+                                              widget.vida));
                                         });
                                       },
                                       child: const Icon(Icons.arrow_drop_down))
@@ -125,15 +138,16 @@ class _PersonagemCardState extends State<PersonagemCard> {
                         Padding(
                           padding: const EdgeInsets.all(20),
                           child: SizedBox(
-                            width: 250,
+                            width: 150,
                             child: LinearProgressIndicator(
                               value: widget.vida / 100,
                               color: widget.vida > 80
                                   ? const Color.fromARGB(255, 14, 219, 58)
-                                  : widget.vida> 50
+                                  : widget.vida > 50
                                       ? Colors.yellow.shade500
                                       : widget.vida > 20
-                                          ? const Color.fromARGB(255, 194, 46, 20)
+                                          ? const Color.fromARGB(
+                                              255, 194, 46, 20)
                                           : Colors.black,
                               backgroundColor: Colors.white,
                             ),
@@ -146,14 +160,18 @@ class _PersonagemCardState extends State<PersonagemCard> {
                             style: const TextStyle(color: Colors.white),
                           ),
                         ),
-
                         SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: FloatingActionButton(onPressed: () =>{
-                           PersonagemDao().delete(widget.nome)
-                          }, child: Icon(Icons.remove,color: Colors.red,),),
-                        )
+                          child: FloatingActionButton(
+                            heroTag: 'btn1',
+                            onPressed: () {
+                              PersonagemDao().delete(widget.nome);
+                            },
+                            child: Icon(
+                              Icons.highlight_remove_rounded,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),

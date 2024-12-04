@@ -49,7 +49,7 @@ class PersonagemDao {
     final List<PersonagemCard> personagens = [];
     for (Map<String, dynamic> linha in mapaDePersonagens) {
       final PersonagemCard personagemCard = PersonagemCard(
-          linha[_name], linha[_url], linha[_raca], linha[_forca]);
+          linha[_name], linha[_url], linha[_raca], linha[_forca], linha[_vida]);
       personagens.add(personagemCard);
     }
     return personagens;

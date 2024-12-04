@@ -1,6 +1,5 @@
 import 'package:alura_quest_app/components/personagem_card.dart';
 import 'package:alura_quest_app/data/personagemDAO.dart';
-import 'package:alura_quest_app/data/personagem_inheridt.dart';
 import 'package:alura_quest_app/screens/form_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -49,7 +48,6 @@ class _InitialScreenState extends State<InitialScreen> {
                           ],
                         ),
                       );
-                      break;
                     case ConnectionState.waiting:
                       return Center(
                         child: Column(
@@ -59,7 +57,6 @@ class _InitialScreenState extends State<InitialScreen> {
                           ],
                         ),
                       );
-                      break;
                     case ConnectionState.active:
                       return Center(
                         child: Column(
@@ -69,7 +66,6 @@ class _InitialScreenState extends State<InitialScreen> {
                           ],
                         ),
                       );
-                      break;
                     case ConnectionState.done:
                       if (snapshot.hasData && itens != null) {
                         if (itens.isNotEmpty) {
@@ -97,15 +93,13 @@ class _InitialScreenState extends State<InitialScreen> {
                         );
                       }
                       return Text('Erro ao carregar Personagens');
-                      break;
                   }
-                  return Text('Erro desconhecido');
                 }),
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () { 
           Navigator.push(
             context,
             MaterialPageRoute(builder: (contextNew) => FormScreen(context)),
