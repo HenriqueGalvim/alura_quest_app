@@ -15,35 +15,35 @@ class Forca extends StatelessWidget {
       children: [
         Icon(
           Icons.star,
-          color: widget.forca >= 1
+          color: widget.personagem.forca >= 1
               ? Colors.red.shade900
               : Colors.red[300],
           size: 15,
         ),
         Icon(
           Icons.star,
-          color: widget.forca >= 2
+          color: widget.personagem.forca >= 2
               ? Colors.red.shade900
               : Colors.red[300],
           size: 15,
         ),
         Icon(
           Icons.star,
-          color: widget.forca >= 3
+          color: widget.personagem.forca >= 3
               ? Colors.red.shade900
               : Colors.red[300],
           size: 15,
         ),
         Icon(
           Icons.star,
-          color: widget.forca >= 4
+          color: widget.personagem.forca >= 4
               ? Colors.red.shade900
               : Colors.red[300],
           size: 15,
         ),
         Icon(
           Icons.star,
-          color: widget.forca >= 5
+          color: widget.personagem.forca >= 5
               ? Colors.red.shade900
               : Colors.red[300],
           size: 15,

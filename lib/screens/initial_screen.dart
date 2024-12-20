@@ -1,5 +1,7 @@
 import 'package:alura_quest_app/components/personagem_card.dart';
 import 'package:alura_quest_app/data/personagemDAO.dart';
+import 'package:alura_quest_app/models/personagem.dart';
+import 'package:alura_quest_app/screens/detail_screen.dart';
 import 'package:alura_quest_app/screens/form_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -22,9 +24,8 @@ class _InitialScreenState extends State<InitialScreen> {
           style: TextStyle(color: Colors.white),
         ),
         actions: [
-          IconButton(onPressed: () => setState(() =>{
-            
-          }), icon: Icon(Icons.refresh))
+          IconButton(
+              onPressed: () => setState(() => {}), icon: Icon(Icons.refresh))
         ],
       ),
       body: AnimatedOpacity(
@@ -34,10 +35,10 @@ class _InitialScreenState extends State<InitialScreen> {
           color: Colors.white60,
           child: Padding(
             padding: const EdgeInsets.only(top: 10, bottom: 75),
-            child: FutureBuilder<List<PersonagemCard>>(
+            child: FutureBuilder<List<Personagem>>(
                 future: PersonagemDao().findAll(),
                 builder: (context, snapshot) {
-                  List<PersonagemCard>? itens = snapshot.data;
+                  List<Personagem>? itens = snapshot.data;
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
                       return Center(
@@ -72,8 +73,8 @@ class _InitialScreenState extends State<InitialScreen> {
                           return ListView.builder(
                             itemCount: itens.length,
                             itemBuilder: (BuildContext context, int index) {
-                              final PersonagemCard personagem = itens[index];
-                              return personagem;
+                              final Personagem personagem = itens[index];
+                              return PersonagemCard(personagem);
                             },
                           );
                         }
@@ -99,18 +100,61 @@ class _InitialScreenState extends State<InitialScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () { 
+        onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (contextNew) => FormScreen(context)),
-          ).then((value) => setState(() {
-            
-          }));
+          ).then((value) => setState(() {}));
         },
         backgroundColor: Colors.red[100],
         child: const Icon(
           Icons.add,
           color: Colors.black,
+        ),
+      ),
+    );
+  }
+}
+
+class FirstRoute extends StatelessWidget {
+  const FirstRoute({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('First Route'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: const Text('Open route'),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SecondRoute()),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class SecondRoute extends StatelessWidget {
+  const SecondRoute({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Second Route'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('Go back!'),
         ),
       ),
     );

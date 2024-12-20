@@ -1,5 +1,5 @@
-import 'package:alura_quest_app/components/personagem_card.dart';
 import 'package:alura_quest_app/data/database.dart';
+import 'package:alura_quest_app/models/personagem.dart';
 import 'package:sqflite/sqflite.dart';
 
 class PersonagemDao {
@@ -17,7 +17,7 @@ class PersonagemDao {
   static const String _forca = 'forca';
   static const String _vida = 'vida';
 
-  save(PersonagemCard personagem) async {
+  save(Personagem personagem) async {
     final Database database = await getDatabase();
     var isExist = await find(personagem.nome);
     if (isExist.isEmpty) {
@@ -28,13 +28,13 @@ class PersonagemDao {
     }
   }
 
-  Future<List<PersonagemCard>> findAll() async {
+  Future<List<Personagem>> findAll() async {
     final Database database = await getDatabase();
     final List<Map<String, dynamic>> result = await database.query(_tableName);
     return toList(result);
   }
 
-  Map<String, dynamic> toMap(PersonagemCard personagem) {
+  Map<String, dynamic> toMap(Personagem personagem) {
     final Map<String, dynamic> mapPersonagem = Map();
     mapPersonagem[_name] = personagem.nome;
     mapPersonagem[_url] = personagem.url;
@@ -45,17 +45,17 @@ class PersonagemDao {
     return mapPersonagem;
   }
 
-  List<PersonagemCard> toList(List<Map<String, dynamic>> mapaDePersonagens) {
-    final List<PersonagemCard> personagens = [];
+  List<Personagem> toList(List<Map<String, dynamic>> mapaDePersonagens) {
+    final List<Personagem> personagens = [];
     for (Map<String, dynamic> linha in mapaDePersonagens) {
-      final PersonagemCard personagemCard = PersonagemCard(
+      final Personagem personagem = Personagem(
           linha[_name], linha[_url], linha[_raca], linha[_forca], linha[_vida]);
-      personagens.add(personagemCard);
+      personagens.add(personagem);
     }
     return personagens;
   }
 
-  Future<List<PersonagemCard>> find(String nomeDoPersonagem) async {
+  Future<List<Personagem>> find(String nomeDoPersonagem) async {
     final Database database = await getDatabase();
     final List<Map<String, dynamic>> result = await database
         .query(_tableName, where: '$_name = ?', whereArgs: [nomeDoPersonagem]);

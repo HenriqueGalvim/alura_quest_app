@@ -1,6 +1,6 @@
-import 'package:alura_quest_app/components/personagem_card.dart';
 import 'package:alura_quest_app/data/personagemDAO.dart';
 import 'package:alura_quest_app/data/personagem_inheridt.dart';
+import 'package:alura_quest_app/models/personagem.dart';
 import 'package:flutter/material.dart';
 
 class FormScreen extends StatefulWidget {
@@ -146,7 +146,7 @@ class _FormScreenState extends State<FormScreen> {
                           child: ElevatedButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  PersonagemDao().save(PersonagemCard(
+                                  PersonagemDao().save(Personagem(
                                       nameController.text,
                                       urlController.text,
                                       racaController.text,

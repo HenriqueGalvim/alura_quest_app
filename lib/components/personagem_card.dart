@@ -1,17 +1,12 @@
 import 'package:alura_quest_app/components/forca.dart';
 import 'package:alura_quest_app/data/personagemDAO.dart';
-import 'package:alura_quest_app/screens/form_screen.dart';
+import 'package:alura_quest_app/models/personagem.dart';
 import 'package:flutter/material.dart';
 
 class PersonagemCard extends StatefulWidget {
-  final String nome;
-  final String url;
-  final String raca;
-  final int forca;
-  int vida;
+  final Personagem personagem;
 
-  PersonagemCard(this.nome, this.url, this.raca, this.forca, this.vida,
-      {super.key});
+  PersonagemCard(this.personagem, {super.key});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -43,7 +38,7 @@ class _PersonagemCardState extends State<PersonagemCard> {
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(4),
                             child: Image.network(
-                              widget.url,
+                              widget.personagem.url,
                               fit: BoxFit.cover,
                             ))),
                     Column(
@@ -58,7 +53,7 @@ class _PersonagemCardState extends State<PersonagemCard> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    widget.nome,
+                                    widget.personagem.nome,
                                     style: const TextStyle(
                                         fontSize: 24, color: Colors.black),
                                     overflow: TextOverflow.ellipsis,
@@ -66,17 +61,17 @@ class _PersonagemCardState extends State<PersonagemCard> {
                                   ElevatedButton(
                                       onPressed: () {
                                         setState(() {
-                                          if (widget.vida >= 100) {
-                                            widget.vida = 100;
+                                          if (widget.personagem.vida >= 100) {
+                                            widget.personagem.vida = 100;
                                           } else {
-                                            widget.vida++;
+                                            widget.personagem.vida++;
                                           }
-                                          PersonagemDao().save(PersonagemCard(
-                                              widget.nome,
-                                              widget.url,
-                                              widget.raca,
-                                              widget.forca,
-                                              widget.vida));
+                                          PersonagemDao().save(Personagem(
+                                              widget.personagem.nome,
+                                              widget.personagem.url,
+                                              widget.personagem.raca,
+                                              widget.personagem.vida,
+                                              widget.personagem.vida));
                                         });
                                       },
                                       child: const Icon(Icons.arrow_drop_up))
@@ -92,7 +87,7 @@ class _PersonagemCardState extends State<PersonagemCard> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    widget.raca,
+                                    widget.personagem.raca,
                                     style: TextStyle(
                                         fontSize: 24,
                                         color: Colors.red.shade900),
@@ -101,17 +96,17 @@ class _PersonagemCardState extends State<PersonagemCard> {
                                   ElevatedButton(
                                       onPressed: () {
                                         setState(() {
-                                          if (widget.vida <= 0) {
-                                            widget.vida = 0;
+                                          if (widget.personagem.vida <= 0) {
+                                            widget.personagem.vida = 0;
                                           } else {
-                                            widget.vida--;
+                                            widget.personagem.vida--;
                                           }
-                                          PersonagemDao().save(PersonagemCard(
-                                              widget.nome,
-                                              widget.url,
-                                              widget.raca,
-                                              widget.forca,
-                                              widget.vida));
+                                          PersonagemDao().save(Personagem(
+                                              widget.personagem.nome,
+                                              widget.personagem.url,
+                                              widget.personagem.raca,
+                                              widget.personagem.forca,
+                                              widget.personagem.vida));
                                         });
                                       },
                                       child: const Icon(Icons.arrow_drop_down))
@@ -140,12 +135,12 @@ class _PersonagemCardState extends State<PersonagemCard> {
                           child: SizedBox(
                             width: 150,
                             child: LinearProgressIndicator(
-                              value: widget.vida / 100,
-                              color: widget.vida > 80
+                              value: widget.personagem.vida / 100,
+                              color: widget.personagem.vida > 80
                                   ? const Color.fromARGB(255, 14, 219, 58)
-                                  : widget.vida > 50
+                                  : widget.personagem.vida > 50
                                       ? Colors.yellow.shade500
-                                      : widget.vida > 20
+                                      : widget.personagem.vida > 20
                                           ? const Color.fromARGB(
                                               255, 194, 46, 20)
                                           : Colors.black,
@@ -156,7 +151,7 @@ class _PersonagemCardState extends State<PersonagemCard> {
                         Padding(
                           padding: const EdgeInsets.only(right: 20),
                           child: Text(
-                            'Vida: ${widget.vida}',
+                            'Vida: ${widget.personagem.vida}',
                             style: const TextStyle(color: Colors.white),
                           ),
                         ),
@@ -164,7 +159,7 @@ class _PersonagemCardState extends State<PersonagemCard> {
                           child: FloatingActionButton(
                             heroTag: 'btn1',
                             onPressed: () {
-                              PersonagemDao().delete(widget.nome);
+                              PersonagemDao().delete(widget.personagem.nome);
                             },
                             child: Icon(
                               Icons.highlight_remove_rounded,
