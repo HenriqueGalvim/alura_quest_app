@@ -1,5 +1,14 @@
 {
-    "personagem":{
-        
+  "personagems": [
+    {
+      "id": "e702",
+      "personagem": {
+        "nome": "personagem.nome",
+        "url": "personagem.url",
+        "raca": "personagem.raca",
+        "forca": "personagem.forca",
+        "vida": "personagem.vida"
+      }
     }
+  ]
 }
