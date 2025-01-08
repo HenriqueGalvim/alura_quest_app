@@ -4,6 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 class PersonagemDao {
   static const String tableSql = 'CREATE TABLE $_tableName('
+      '$_id TEXT, '
       '$_name TEXT, '
       '$_url TEXT¨, '
       '$_raca TEXT¨, '
@@ -11,6 +12,7 @@ class PersonagemDao {
       '$_vida INTEGER¨)';
 
   static const String _tableName = 'PersonagemTable';
+  static const String _id = 'id';
   static const String _name = 'nome';
   static const String _url = 'url';
   static const String _raca = 'raca';
@@ -36,6 +38,7 @@ class PersonagemDao {
 
   Map<String, dynamic> toMap(Personagem personagem) {
     final Map<String, dynamic> mapPersonagem = Map();
+    mapPersonagem[_id] = personagem.id;
     mapPersonagem[_name] = personagem.nome;
     mapPersonagem[_url] = personagem.url;
     mapPersonagem[_raca] = personagem.raca;
@@ -48,8 +51,8 @@ class PersonagemDao {
   List<Personagem> toList(List<Map<String, dynamic>> mapaDePersonagens) {
     final List<Personagem> personagens = [];
     for (Map<String, dynamic> linha in mapaDePersonagens) {
-      final Personagem personagem = Personagem(
-          linha[_name], linha[_url], linha[_raca], linha[_forca], linha[_vida]);
+      final Personagem personagem = Personagem( id:
+          linha[_id],nome: linha[_name], url: linha[_url], raca: linha[_raca],forca: linha[_forca], vida: linha[_vida]);
       personagens.add(personagem);
     }
     return personagens;

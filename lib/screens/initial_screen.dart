@@ -1,8 +1,10 @@
+import 'dart:developer';
+
 import 'package:alura_quest_app/components/personagem_card.dart';
 import 'package:alura_quest_app/data/personagemDAO.dart';
 import 'package:alura_quest_app/models/personagem.dart';
-import 'package:alura_quest_app/screens/detail_screen.dart';
 import 'package:alura_quest_app/screens/form_screen.dart';
+import 'package:alura_quest_app/service/personagem_service.dart';
 import 'package:flutter/material.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -13,6 +15,7 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen> {
+  PersonagemService personagemService = PersonagemService();
   bool opacidade = true;
   @override
   Widget build(BuildContext context) {
@@ -36,9 +39,11 @@ class _InitialScreenState extends State<InitialScreen> {
           child: Padding(
             padding: const EdgeInsets.only(top: 10, bottom: 75),
             child: FutureBuilder<List<Personagem>>(
-                future: PersonagemDao().findAll(),
+                future: personagemService.getAll(),
                 builder: (context, snapshot) {
                   List<Personagem>? itens = snapshot.data;
+                  log("Testando");
+                  log(itens.toString());
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
                       return Center(
@@ -73,6 +78,8 @@ class _InitialScreenState extends State<InitialScreen> {
                           return ListView.builder(
                             itemCount: itens.length,
                             itemBuilder: (BuildContext context, int index) {
+                              log("Personagem Get");
+                              log(itens[index].toString());
                               final Personagem personagem = itens[index];
                               return PersonagemCard(personagem);
                             },
@@ -91,6 +98,12 @@ class _InitialScreenState extends State<InitialScreen> {
                               )
                             ],
                           ),
+                        );
+                      }
+                      if (snapshot.hasError) {
+                        log('${snapshot.error}');
+                        return Center(
+                          child: Text('Erro ao carregar personagens: ${snapshot.error}'),
                         );
                       }
                       return Text('Erro ao carregar Personagens');

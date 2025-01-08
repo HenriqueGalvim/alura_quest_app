@@ -67,11 +67,12 @@ class _PersonagemCardState extends State<PersonagemCard> {
                                             widget.personagem.vida++;
                                           }
                                           PersonagemDao().save(Personagem(
-                                              widget.personagem.nome,
-                                              widget.personagem.url,
-                                              widget.personagem.raca,
-                                              widget.personagem.vida,
-                                              widget.personagem.vida));
+                                            id:widget.personagem.id,
+                                              nome:widget.personagem.nome,
+                                              url:widget.personagem.url,
+                                              raca:widget.personagem.raca,
+                                              forca:widget.personagem.forca,
+                                              vida:widget.personagem.vida));
                                         });
                                       },
                                       child: const Icon(Icons.arrow_drop_up))
@@ -102,11 +103,12 @@ class _PersonagemCardState extends State<PersonagemCard> {
                                             widget.personagem.vida--;
                                           }
                                           PersonagemDao().save(Personagem(
-                                              widget.personagem.nome,
-                                              widget.personagem.url,
-                                              widget.personagem.raca,
-                                              widget.personagem.forca,
-                                              widget.personagem.vida));
+                                            id:widget.personagem.id,
+                                             nome: widget.personagem.nome,
+                                             url: widget.personagem.url,
+                                             raca: widget.personagem.raca,
+                                             forca: widget.personagem.forca,
+                                             vida: widget.personagem.vida));
                                         });
                                       },
                                       child: const Icon(Icons.arrow_drop_down))

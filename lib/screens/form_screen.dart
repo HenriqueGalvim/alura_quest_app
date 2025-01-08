@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:alura_quest_app/data/personagemDAO.dart';
 import 'package:alura_quest_app/data/personagem_inheridt.dart';
 import 'package:alura_quest_app/models/personagem.dart';
+import 'package:alura_quest_app/service/personagem_service.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class FormScreen extends StatefulWidget {
   const FormScreen(this.personagemContext, {super.key});
@@ -17,6 +21,7 @@ class _FormScreenState extends State<FormScreen> {
   TextEditingController racaController = TextEditingController();
   TextEditingController forcaController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  PersonagemService personagemService = PersonagemService();
 
   @override
   Widget build(BuildContext context) {
@@ -146,20 +151,14 @@ class _FormScreenState extends State<FormScreen> {
                           child: ElevatedButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  PersonagemDao().save(Personagem(
-                                      nameController.text,
-                                      urlController.text,
-                                      racaController.text,
-                                      int.parse(forcaController.text),
-                                      100));
+                                  var uuid = Uuid().v1();
 
-                                  PersonagemInheridt.of(
-                                          widget.personagemContext)!
-                                      .novoPersonagem(
-                                          nameController.text,
-                                          urlController.text,
-                                          racaController.text,
-                                          int.parse(forcaController.text));
+                                  Personagem personagem = new Personagem(id:uuid,nome:nameController.text,
+                                      url:urlController.text,
+                                      raca:racaController.text,
+                                      forca:int.parse(forcaController.text),vida: 100);
+                                  personagemService.create(personagem);
+
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                           content: Text(
