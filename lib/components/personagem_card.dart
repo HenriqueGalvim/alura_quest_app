@@ -1,6 +1,7 @@
 import 'package:alura_quest_app/components/forca.dart';
 import 'package:alura_quest_app/data/personagemDAO.dart';
 import 'package:alura_quest_app/models/personagem.dart';
+import 'package:alura_quest_app/service/personagem_service.dart';
 import 'package:flutter/material.dart';
 
 class PersonagemCard extends StatefulWidget {
@@ -14,6 +15,8 @@ class PersonagemCard extends StatefulWidget {
 }
 
 class _PersonagemCardState extends State<PersonagemCard> {
+  PersonagemService personagemService = new PersonagemService();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -66,7 +69,7 @@ class _PersonagemCardState extends State<PersonagemCard> {
                                           } else {
                                             widget.personagem.vida++;
                                           }
-                                          PersonagemDao().save(Personagem(
+                                          personagemService.save(Personagem(
                                             id:widget.personagem.id,
                                               nome:widget.personagem.nome,
                                               url:widget.personagem.url,
@@ -102,7 +105,7 @@ class _PersonagemCardState extends State<PersonagemCard> {
                                           } else {
                                             widget.personagem.vida--;
                                           }
-                                          PersonagemDao().save(Personagem(
+                                          personagemService.save(Personagem(
                                             id:widget.personagem.id,
                                              nome: widget.personagem.nome,
                                              url: widget.personagem.url,
@@ -161,7 +164,9 @@ class _PersonagemCardState extends State<PersonagemCard> {
                           child: FloatingActionButton(
                             heroTag: 'btn1',
                             onPressed: () {
-                              PersonagemDao().delete(widget.personagem.nome);
+                              setState(() {
+                                personagemService.deleta(widget.personagem.id);
+                              });
                             },
                             child: Icon(
                               Icons.highlight_remove_rounded,

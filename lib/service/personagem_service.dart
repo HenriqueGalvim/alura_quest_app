@@ -43,9 +43,23 @@ class PersonagemService {
     return personagens;
   }
 
-  Future<bool> deleta(int id) async {
+  Future<bool> deleta(String id) async {
     http.Response response = await client.delete(
-      Uri.parse("${getUrl()}/${id}"),
+      Uri.parse("${getUrl()}${id}"),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+    return false;
+  }
+
+
+  Future<bool> save(Personagem personagem) async {
+    String jsonPersonagem = json.encode(personagem.toMap());
+    http.Response response = await client.put(
+      Uri.parse("${getUrl()}${personagem.id}"),
+      body: jsonPersonagem,
     );
 
     if (response.statusCode == 200) {
