@@ -33,24 +33,24 @@ class PersonagemService {
 
   Future<List<Personagem>> getAll() async {
     http.Response response = await client.get(Uri.parse(getUrl()));
-
     List<Personagem> personagens = [];
     List<dynamic> listaDePersonagens = json.decode(response.body);
-    log("Log dos personagens");
-    log(listaDePersonagens.toString());
 
     for (var jsonMap in listaDePersonagens) {
-      log("Personagem");
-      log(jsonMap.toString());
-      log("Teste");
-      log(Personagem.fromMap(jsonMap.id.jsonMap).toString());
-      Map<String,dynamic> personagemTeste = {"id": jsonMap};
-      log(personagemTeste.toString());
-      personagens.add(Personagem.fromMap(personagemTeste));
+      Personagem personagem = new Personagem(id: jsonMap['id'], nome: jsonMap['nome'], url: jsonMap['url'], raca: jsonMap['raca'], forca: jsonMap['forca'], vida: jsonMap['vida']);
+      personagens.add(personagem);
     }
-    log("Testeeee");
-    log("personagens: ${personagens.toString()
-    }");
     return personagens;
+  }
+
+  Future<bool> deleta(int id) async {
+    http.Response response = await client.delete(
+      Uri.parse("${getUrl()}/${id}"),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+    return false;
   }
 }

@@ -42,8 +42,6 @@ class _InitialScreenState extends State<InitialScreen> {
                 future: personagemService.getAll(),
                 builder: (context, snapshot) {
                   List<Personagem>? itens = snapshot.data;
-                  log("Testando");
-                  log(itens.toString());
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
                       return Center(
@@ -78,8 +76,6 @@ class _InitialScreenState extends State<InitialScreen> {
                           return ListView.builder(
                             itemCount: itens.length,
                             itemBuilder: (BuildContext context, int index) {
-                              log("Personagem Get");
-                              log(itens[index].toString());
                               final Personagem personagem = itens[index];
                               return PersonagemCard(personagem);
                             },
@@ -123,51 +119,6 @@ class _InitialScreenState extends State<InitialScreen> {
         child: const Icon(
           Icons.add,
           color: Colors.black,
-        ),
-      ),
-    );
-  }
-}
-
-class FirstRoute extends StatelessWidget {
-  const FirstRoute({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('First Route'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          child: const Text('Open route'),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const SecondRoute()),
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class SecondRoute extends StatelessWidget {
-  const SecondRoute({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Second Route'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Text('Go back!'),
         ),
       ),
     );

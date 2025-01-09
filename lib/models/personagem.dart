@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 class Personagem {
   String id;
   String nome;
@@ -16,7 +18,7 @@ class Personagem {
   });
 
 
-  static Personagem fromMap(Map<String,dynamic> map) {
+  static Personagem fromMap(dynamic map) {
     return Personagem(
       id: map['id'],
       nome: map['name'],
