@@ -15,8 +15,25 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen> {
+  List<Personagem> personagens = [];
   PersonagemService personagemService = PersonagemService();
   bool opacidade = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchPersonagens();
+  }
+
+  fetchPersonagens ()  {
+    setState(() {
+    });
+  }
+
+  void refreshFunction() {
+    fetchPersonagens();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +45,7 @@ class _InitialScreenState extends State<InitialScreen> {
         ),
         actions: [
           IconButton(
-              onPressed: () => setState(() => {}), icon: Icon(Icons.refresh))
+              onPressed: refreshFunction, icon: Icon(Icons.refresh))
         ],
       ),
       body: AnimatedOpacity(
@@ -113,7 +130,11 @@ class _InitialScreenState extends State<InitialScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (contextNew) => FormScreen(context)),
-          ).then((value) => setState(() {}));
+          ).then(
+              ((_) {
+                refreshFunction();
+              })
+          );
         },
         backgroundColor: Colors.red[100],
         child: const Icon(

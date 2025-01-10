@@ -1,6 +1,8 @@
+import 'package:alura_quest_app/components/confirmation_dialog.dart';
 import 'package:alura_quest_app/components/forca.dart';
 import 'package:alura_quest_app/data/personagemDAO.dart';
 import 'package:alura_quest_app/models/personagem.dart';
+import 'package:alura_quest_app/screens/form_screen.dart';
 import 'package:alura_quest_app/service/personagem_service.dart';
 import 'package:flutter/material.dart';
 
@@ -16,14 +18,25 @@ class PersonagemCard extends StatefulWidget {
 
 class _PersonagemCardState extends State<PersonagemCard> {
   PersonagemService personagemService = new PersonagemService();
+  void refreshFunction() {
+    setState(() {
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return InkWell(
+    onTap: () { Navigator.push(
+        context,
+        MaterialPageRoute(builder: (contextNew) => FormScreen(context, personagem: widget.personagem,)),
+    ).then((value) => setState(() {}));
+    },
+    child:Padding(
       padding: const EdgeInsets.all(8.8),
       child: Stack(
         children: [
           Container(
+
             decoration: BoxDecoration(
                 color: Colors.red.shade100,
                 borderRadius: BorderRadius.circular(4)),
@@ -164,10 +177,26 @@ class _PersonagemCardState extends State<PersonagemCard> {
                           child: FloatingActionButton(
                             heroTag: 'btn1',
                             onPressed: () {
-                              setState(() {
-                                personagemService.deleta(widget.personagem.id);
-                              });
-                            },
+                            showConfirmationDialog(
+                            context,
+                            content:
+                            "Deseja realmente remover o personagem  ${widget.personagem.nome}?",
+                            affirmativeOption: "Remover",
+                            ).then((value) {
+                            if (value != null){
+                              if (value){
+                                personagemService.deleta(widget.personagem.id).then(((_) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                  content: Text("Removido com sucesso!"),
+                                  ),
+                                );
+                                  refreshFunction();
+                                }));
+                              }
+                            } } );
+                                }
+                            ,
                             child: Icon(
                               Icons.highlight_remove_rounded,
                               color: Colors.red,
@@ -183,6 +212,6 @@ class _PersonagemCardState extends State<PersonagemCard> {
           )
         ],
       ),
-    );
+    ));
   }
 }

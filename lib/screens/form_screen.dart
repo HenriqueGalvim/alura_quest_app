@@ -1,15 +1,13 @@
-import 'dart:developer';
-
-import 'package:alura_quest_app/data/personagemDAO.dart';
-import 'package:alura_quest_app/data/personagem_inheridt.dart';
 import 'package:alura_quest_app/models/personagem.dart';
 import 'package:alura_quest_app/service/personagem_service.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 class FormScreen extends StatefulWidget {
-  const FormScreen(this.personagemContext, {super.key});
   final BuildContext personagemContext;
+  final Personagem? personagem;
+
+  const FormScreen(this.personagemContext, {super.key,this.personagem});
 
   @override
   State<FormScreen> createState() => _FormScreenState();
@@ -20,17 +18,51 @@ class _FormScreenState extends State<FormScreen> {
   TextEditingController urlController = TextEditingController();
   TextEditingController racaController = TextEditingController();
   TextEditingController forcaController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
   PersonagemService personagemService = PersonagemService();
 
   @override
+  FormScreen get widget => super.widget;
+
+  String isPersonagemTitulo(){
+    if (widget.personagem != null){
+      return 'Editar Personagem';
+    }
+    return 'Novo Personagem';
+  }
+
+  bool isPersonagem(){
+    if (widget.personagem != null){
+      return true;
+    }
+    return false;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    nameController = TextEditingController(text: widget.personagem?.nome ?? "");
+    urlController = TextEditingController(text: widget.personagem?.url ?? "");
+    racaController = TextEditingController(text: widget.personagem?.raca ?? "");
+    forcaController = TextEditingController(text: widget.personagem?.forca.toString() ?? "");
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     return Form(
       key: _formKey,
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.red.shade400,
-            title: const Text("Novo Personagem",
+            title: Text(isPersonagemTitulo(),
                 style: TextStyle(color: Colors.white)),
           ),
           body: Center(
@@ -75,6 +107,7 @@ class _FormScreenState extends State<FormScreen> {
 
                             return null;
                           },
+
                           controller: racaController,
                           textAlign: TextAlign.center,
                           decoration: const InputDecoration(
@@ -146,30 +179,47 @@ class _FormScreenState extends State<FormScreen> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
-                          width: 150,
-                          height: 30,
+                          width: 200,
+                          height: 50,
                           child: ElevatedButton(
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  var uuid = Uuid().v1();
+                                  if(!isPersonagem()){
+                                      var uuid = Uuid().v1();
 
-                                  Personagem personagem = new Personagem(id:uuid,nome:nameController.text,
-                                      url:urlController.text,
-                                      raca:racaController.text,
-                                      forca:int.parse(forcaController.text),vida: 100);
-                                  personagemService.create(personagem);
+                                      Personagem personagem = new Personagem(id:uuid,nome:nameController.text,
+                                          url:urlController.text,
+                                          raca:racaController.text,
+                                          forca:int.parse(forcaController.text),vida: 100);
+                                      personagemService.create(personagem);
 
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content: Text(
-                                              "Personagem Adicionado com Sucesso",
-                                              style: TextStyle(
-                                                  color: Colors.green))));
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                              content: Text(
+                                                  "Personagem Adicionado com Sucesso",
+                                                  style: TextStyle(
+                                                      color: Colors.green))));
 
-                                  Navigator.pop(context);
+                                      Navigator.pop(context);
+                                  }else{
+                                    Personagem personagem = new Personagem(id:widget.personagem!.id,nome:nameController.text,
+                                        url:urlController.text,
+                                        raca:racaController.text,
+                                        forca:int.parse(forcaController.text),vida: 100);
+                                    personagemService.save(personagem);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                "Personagem Editado com Sucesso",
+                                                style: TextStyle(
+                                                    color: Colors.green))));
+
+                                    Navigator.pop(context);
+                                  }
                                 }
+
                               },
-                              child: const Text("Adicionar")),
+                              child:  Text(isPersonagemTitulo())),
                         ),
                       )
                     ],
