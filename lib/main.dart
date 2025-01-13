@@ -1,5 +1,6 @@
 import 'package:alura_quest_app/data/personagem_inheridt.dart';
 import 'package:alura_quest_app/screens/initial_screen.dart';
+import 'package:alura_quest_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home:PersonagemInheridt(child: const InitialScreen(),),
+      home:PersonagemInheridt(child: LoginScreen(),),
     );
   }
 }
