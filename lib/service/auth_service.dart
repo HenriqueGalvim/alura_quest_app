@@ -12,7 +12,7 @@ class AuthService{
   http.Client client = InterceptedClient.build(
       interceptors: [HttpInterceptors()]);
 
-  login({required String email, required String password}) async {
+  Future<bool> login({required String email, required String password}) async {
     http.Response response = await client.post(
         Uri.parse('${url}login'),
       headers: {
@@ -24,9 +24,19 @@ class AuthService{
       }),
     );
     if (response.statusCode != 200){
+      String content = json.decode(response.body);
+      switch (content){
+        case "Usuário não autenticado":
+          throw UserNotFoundException();
+      }
       throw HttpException(response.body);
+      return false;
     }
+
+    return true;
   }
 
   register(){}
 }
+
+class UserNotFoundException implements Exception {}

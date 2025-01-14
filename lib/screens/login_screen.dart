@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:alura_quest_app/components/confirmation_dialog.dart';
 import 'package:alura_quest_app/service/auth_service.dart';
 import 'package:flutter/material.dart';
 
@@ -56,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   ElevatedButton(
                       onPressed: () {
-                        login();
+                        login(context);
                       }, child: const Text("Continuar")),
                 ],
               ),
@@ -66,11 +67,15 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-  login() {
+  login(BuildContext context) async {
     String email = _emailController.text;
     String password = _passController.text;
-    authService.login(email: email, password: password);
 
-    log("$email - $password");
+    try{
+      bool result = await authService.login(email: email, password: password);
+    }on UserNotFoundException{
+      log("USUARIO NAO ENCONTRADO");
+      showConfirmationDialog(context);
+    }
   }
 }
