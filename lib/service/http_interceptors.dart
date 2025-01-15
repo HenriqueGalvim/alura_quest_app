@@ -21,7 +21,6 @@ class HttpInterceptors extends InterceptorContract {
     logger.d('----- Response -----');
     logger.d('Code: ${response.statusCode}');
     if (response is Response) {
-      log((response).body);
           logger.d(
         "Cabeçalhos: ${response.headers}\nCorpo: ${response.body}");
     }

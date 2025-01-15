@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:alura_quest_app/components/confirmation_dialog.dart';
+import 'package:alura_quest_app/screens/initial_screen.dart';
 import 'package:alura_quest_app/service/auth_service.dart';
 import 'package:flutter/material.dart';
 
@@ -71,11 +72,20 @@ class LoginScreen extends StatelessWidget {
     String email = _emailController.text;
     String password = _passController.text;
 
-    try{
       bool result = await authService.login(email: email, password: password);
-    }on UserNotFoundException{
-      log("USUARIO NAO ENCONTRADO");
-      showConfirmationDialog(context);
-    }
+      if(!result){
+        showConfirmationDialog(context,content:
+        "Deseja criar um novo usuário usando o e-mail $email e a senha inserida?",
+            affirmativeOption: "CRIAR").then((value) {
+          if (value != null && value) {
+            authService.register(email: email, password: password);
+          }
+        });
+      }else{
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (contextNew) => InitialScreen()),
+        );
+      }
   }
 }

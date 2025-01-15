@@ -9,7 +9,7 @@ import 'dart:convert';
 import 'package:uuid/uuid.dart';
 
 class PersonagemService {
-  static const String urlBase = "http://172.25.128.1:3000/";
+  static const String urlBase = "http://localhost:5146/";
   static const String subDomain = "personagem/";
   http.Client client =
       InterceptedClient.build(interceptors: [HttpInterceptors()]);

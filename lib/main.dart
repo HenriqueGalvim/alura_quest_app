@@ -2,13 +2,27 @@ import 'package:alura_quest_app/data/personagem_inheridt.dart';
 import 'package:alura_quest_app/screens/initial_screen.dart';
 import 'package:alura_quest_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  bool isLogged = await verifyToken();
+  runApp(MyApp(isLogged: isLogged));
+}
+
+Future<bool> verifyToken() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? token = prefs.getString("token");
+  if (token != null) {
+    return true;
+  }
+  return false;
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLogged;
+  const MyApp({Key? key, required this.isLogged}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +31,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home:PersonagemInheridt(child: LoginScreen(),),
+      initialRoute: (isLogged) ? "home" : "login",
+      routes: {
+        "home": (context) => const InitialScreen(),
+        "login": (context) => LoginScreen(),
+      },
     );
   }
 }
