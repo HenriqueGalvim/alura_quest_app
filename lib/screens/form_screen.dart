@@ -1,3 +1,4 @@
+import 'package:alura_quest_app/models/PersonagemCreateDto.dart';
 import 'package:alura_quest_app/models/personagem.dart';
 import 'package:alura_quest_app/service/personagem_service.dart';
 import 'package:flutter/material.dart';
@@ -185,9 +186,8 @@ class _FormScreenState extends State<FormScreen> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   if(!isPersonagem()){
-                                      var uuid = Uuid().v1();
 
-                                      Personagem personagem = new Personagem(id:uuid,nome:nameController.text,
+                                      PersonagemCreateDto personagem = new PersonagemCreateDto(nome:nameController.text,
                                           url:urlController.text,
                                           raca:racaController.text,
                                           forca:int.parse(forcaController.text),vida: 100);

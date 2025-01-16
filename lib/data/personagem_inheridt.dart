@@ -10,28 +10,28 @@ class PersonagemInheridt extends InheritedWidget {
 
   final List<Personagem> listaDePersonagens = [
     Personagem(
-      id:'1',
+      id:1,
         nome:"Aragorn",
         url:"https://th.bing.com/th/id/R.0d96ce0237f2b3c05225f75a2d50dff5?rik=PQpdhbN03x1wuA&pid=ImgRaw&r=0",
         raca:"Humano",
         forca:3,
         vida:100),
     Personagem(
-        id:'1',
+        id:1,
         nome:"Aragorn",
         url:"https://th.bing.com/th/id/R.0d96ce0237f2b3c05225f75a2d50dff5?rik=PQpdhbN03x1wuA&pid=ImgRaw&r=0",
         raca:"Humano",
         forca:3,
         vida:100),
     Personagem(
-        id:'1',
+        id:1,
         nome:"Aragorn",
         url:"https://th.bing.com/th/id/R.0d96ce0237f2b3c05225f75a2d50dff5?rik=PQpdhbN03x1wuA&pid=ImgRaw&r=0",
         raca:"Humano",
         forca:3,
         vida:100),
     Personagem(
-        id:'1',
+        id:1,
         nome:"Aragorn",
         url:"https://th.bing.com/th/id/R.0d96ce0237f2b3c05225f75a2d50dff5?rik=PQpdhbN03x1wuA&pid=ImgRaw&r=0",
         raca:"Humano",
@@ -40,7 +40,7 @@ class PersonagemInheridt extends InheritedWidget {
   ];
 
   void novoPersonagem(String nome, String url, String raca, int forca){
-      listaDePersonagens.add(Personagem(id:'1',nome:nome, url:url, raca:raca, forca:forca,vida:100));
+      listaDePersonagens.add(Personagem(id:1,nome:nome, url:url, raca:raca, forca:forca,vida:100));
   }
 
   static PersonagemInheridt? of(BuildContext context) {

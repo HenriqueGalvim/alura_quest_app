@@ -6,6 +6,7 @@ import 'package:alura_quest_app/models/personagem.dart';
 import 'package:alura_quest_app/screens/form_screen.dart';
 import 'package:alura_quest_app/service/personagem_service.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});
@@ -25,9 +26,10 @@ class _InitialScreenState extends State<InitialScreen> {
     fetchPersonagens();
   }
 
-  fetchPersonagens ()  {
+  Future<List<Personagem>> fetchPersonagens () async  {
     setState(() {
     });
+      return personagemService.getAll();
   }
 
   void refreshFunction() {
@@ -42,12 +44,25 @@ class _InitialScreenState extends State<InitialScreen> {
         title: const Text(
           'AluraQuest',
           style: TextStyle(color: Colors.white),
-        ),
+        )
+        ,
         actions: [
           IconButton(
               onPressed: refreshFunction, icon: Icon(Icons.refresh))
         ],
       ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text("Sair"),
+              onTap: () {
+                logout(context);
+              },
+            )
+          ],
+        )),
       body: AnimatedOpacity(
         opacity: opacidade ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 600),
@@ -56,7 +71,7 @@ class _InitialScreenState extends State<InitialScreen> {
           child: Padding(
             padding: const EdgeInsets.only(top: 10, bottom: 75),
             child: FutureBuilder<List<Personagem>>(
-                future: personagemService.getAll(),
+                future: fetchPersonagens(),
                 builder: (context, snapshot) {
                   List<Personagem>? itens = snapshot.data;
                   switch (snapshot.connectionState) {
@@ -144,4 +159,10 @@ class _InitialScreenState extends State<InitialScreen> {
       ),
     );
   }
+}
+logout(BuildContext context) {
+  SharedPreferences.getInstance().then((prefs) {
+    prefs.clear();
+    Navigator.pushReplacementNamed(context,"login");
+  });
 }

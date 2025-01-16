@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:alura_quest_app/data/personagem_inheridt.dart';
 import 'package:alura_quest_app/screens/initial_screen.dart';
 import 'package:alura_quest_app/screens/login_screen.dart';
@@ -14,6 +16,7 @@ void main() async {
 Future<bool> verifyToken() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String? token = prefs.getString("token");
+
   if (token != null) {
     return true;
   }
